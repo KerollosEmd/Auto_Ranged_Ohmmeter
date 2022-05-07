@@ -19,7 +19,6 @@
  * @Imports: MCAL libraries
  */
 #include "DIO_interface.h"
-#include "GIE_interface.h"
 #include "ADC_interface.h"
 
 
