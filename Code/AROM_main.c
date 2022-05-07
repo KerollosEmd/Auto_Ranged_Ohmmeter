@@ -117,14 +117,21 @@ int main(void){
 		/*Swapping between the 7 Channels and Take Readings*/
 		for (Local_u8Index=0;Local_u8Index<7;Local_u8Index++){
 			DIO_u8SetPortValue(DIO_u8_PORTC,AROM_Au8Channels[Local_u8Index]); //Setting High one channel and the other to Low
-			if(ADC_u8GetDigitalValueSync(ADC_u8_SINGLE_ADC6, &Local_u16DigitalValue)){
+			
+			/*
+			 * if condition to check that there is no error return from the ADC_u8GetDigitalValueSync 
+			 * hint: >>>> the instruction lines beside the debug comment, it for debugging and will be deleted 
+			 *            at the Release state.
+			 */
+			if(STD_TYPES_OK==ADC_u8GetDigitalValueSync(ADC_u8_SINGLE_ADC7, &Local_u16DigitalValue)){
 				/*
-				 * Taking the reading and assign it to the Pointer of Array element
+				 * Taking the reading and assign it to the Array of Readings to the corresponding reading element 
 				 */
 				AROM_u16DigitalReadings[Local_u8Index]=Local_u16DigitalValue;
+				
 				LCD_voidGoToXY(0,LCD_u8_LINE_2);				//debug
 				LCD_voidWritNumber(Local_u16DigitalValue);      //debug
-				_delay_ms(500);
+				_delay_ms(500);									//debug
 
 			}else{
 				/*

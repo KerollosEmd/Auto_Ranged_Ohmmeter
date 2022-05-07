@@ -5,8 +5,8 @@
 /*	        ********************			Version: 1.0		                ******************   	*/
 /********************************************************************************************************/
 
-#include "C:\Users\KeroEmad\Desktop\imt_july\COTS\4-LibLayer\STD_Types.h"
-#include "C:\Users\KeroEmad\Desktop\imt_july\COTS\4-LibLayer\BIT_MATH.h"
+#include "STD_Types.h"
+#include "BIT_MATH.h"
 
 #include "ADC_config.h"
 #include "ADC_private.h"
@@ -73,13 +73,11 @@ u8 ADC_u8GetDigitalValueSync(u8 Copy_u8ChannelNum,
 		SET_BIT(ADC_u8_ADCSRA_REG, ADC_u8_CSRA_ADSC);
 
 		//wait for the flag
-/*
+
 		while ((!GET_BIT(ADC_u8_ADCSRA_REG, ADC_u8_CSRA_ADIF))
 				&& (Local_u32TimeOutCounter < 1000000UL))
 			Local_u32TimeOutCounter++;
-*/
 
-		while (!GET_BIT(ADC_u8_ADCSRA_REG, ADC_u8_CSRA_ADIF));
 
 		//Check flag
 		if (GET_BIT(ADC_u8_ADCSRA_REG, ADC_u8_CSRA_ADIF)) {
