@@ -178,7 +178,10 @@ void LCD_voidWritNumber(u32 Copy_u32Number) {
 		local_u8Length++;
 		local_u32num /= 10;
 	}
-
+	if(local_u8Length==0){
+		local_u8Length = 1;
+		local_u8Array_Asmpeller[0]='0';
+	}
 	//Split the whole number to units , tens , hundreds ,.... etc.
 	for (Local_u32Index = 0; Copy_u32Number != 0; Local_u32Index++) {
 		local_u8Array_Asmpeller[local_u8Length - (Local_u32Index + 1)] = '0'

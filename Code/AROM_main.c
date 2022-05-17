@@ -34,7 +34,9 @@
 /*
  * @defines
  */
-//..........
+#define SIMULATION	0
+#define REAL		1
+#define AROM_Mode		REAL
 /*
  * End of defines
  */
@@ -42,13 +44,25 @@
 /*
  * @Global_Variables
  */
-u16 AROM_Au16Resistances[] = { 208,				//R1
+u16 AROM_Au16Resistances[] = {
+#if   (AROM_Mode==REAL)
+		208,				//R1
 		548,                //R2
 		983,                //R3
 		2110,               //R4
 		4550,               //R5
 		9730,               //R6
 		23600               //R7
+#else
+		220,                //R1
+		560,                //R2
+		1000,               //R3
+		2200,               //R4
+		4700,               //R5
+		10000,              //R6
+		22000               //R7
+#endif
+
 		};
 
 u8 AROM_Au8Channels[] = { 0x01,  		 //CH1
@@ -194,7 +208,7 @@ int main(void) {
 						/ (4440UL - Local_f32VoltX_mv);
 				LCD_voidWriteCommand(LCD_Clear);
 				LCD_voidWriteString(Local_u8String_Rx);
-				LCD_voidWritNumber((u32) Local_f32ResX);
+				LCD_voidWritNumber(Local_f32ResX);
 				LCD_voidWriteChar(0xF4);					// The OHM symbol
 				LCD_voidWriteChar(' ');
 
@@ -206,7 +220,7 @@ int main(void) {
 				LCD_voidWriteChar(' ');                                  //debug
 				LCD_voidWriteString(Local_u8String_R1);					//debug
 				LCD_voidWritNumber(AROM_Au16Resistances[Local_u8Index]); //debug
-				_delay_ms(3000);
+				_delay_ms(500);
 				break;
 			}
 		}

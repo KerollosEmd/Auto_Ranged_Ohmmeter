@@ -65,7 +65,7 @@ u8 ADC_u8GetDigitalValueSync(u8 Copy_u8ChannelNum,
 		u16* Copy_u16ReturnedDigitalValue) {
 	u8 Local_u8ErrorState = STD_TYPES_OK;
 
-//	u32 Local_u32TimeOutCounter = 0;
+	u32 Local_u32TimeOutCounter = 0;
 
 	if (ADC_u8SetChannelandGain(Copy_u8ChannelNum)
 			&& (Copy_u16ReturnedDigitalValue != NULL)) {
