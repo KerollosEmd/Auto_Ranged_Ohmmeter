@@ -52,18 +52,18 @@ u16 AROM_Au16Resistances[] = {
 		2110,               //R4
 		4550,               //R5
 		9730,               //R6
-		23600               //R7
+		22600               //R7
 #else
 		220,                //R1
-		560,                //R2
-		1000,               //R3
-		2200,               //R4
-		4700,               //R5
-		10000,              //R6
-		22000               //R7
+		560,//R2
+		1000,//R3
+		2200,//R4
+		4700,//R5
+		10000,//R6
+		22000//R7
 #endif
 
-		};
+	};
 
 u8 AROM_Au8Channels[] = { 0x01,  		 //CH1
 		0x02,        //CH2
@@ -208,10 +208,15 @@ int main(void) {
 						/ (4440UL - Local_f32VoltX_mv);
 				LCD_voidWriteCommand(LCD_Clear);
 				LCD_voidWriteString(Local_u8String_Rx);
-				LCD_voidWritNumber(Local_f32ResX);
+				Local_f32ResX > 1000 ?// if true
+						( {	LCD_voidWritNumber(Local_f32ResX/1000);
+						LCD_voidWriteChar('.');
+						LCD_voidWritNumber(((u32)Local_f32ResX/10)%100);  //two digits after the point
+						LCD_voidWriteChar('k');}) : //else
+						LCD_voidWritNumber(Local_f32ResX);
 				LCD_voidWriteChar(0xF4);					// The OHM symbol
-				LCD_voidWriteChar(' ');
 
+				LCD_voidWriteChar(' ');
 				LCD_voidWritNumber(Local_f32VoltX_mv);                   //debug
 				LCD_voidWriteString(Local_u8String_mv);					//debug
 				LCD_voidGoToXY(0, LCD_u8_LINE_2);						 //debug
